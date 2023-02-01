@@ -2,11 +2,13 @@ import de.undercouch.gradle.tasks.download.Download
 
 plugins {
     id("multiplatform-setup")
-    id("publish-setup")
+    id("maven-publish")
+
+//    id("publish-setup")
 }
 
 group = "com.shepeliev"
-version = "0.106.0"
+version = "0.106.1-LOCAL"
 
 val jitsiWebRtcVersion = "106.0.1"
 
