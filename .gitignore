@@ -10,3 +10,4 @@ build/
 local.properties
 Carthage/
 Cartfile.resolved
+jitsi-webrtc

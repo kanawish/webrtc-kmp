@@ -3,14 +3,13 @@ import de.undercouch.gradle.tasks.download.Download
 plugins {
     id("multiplatform-setup")
     id("maven-publish")
+    signing
 
 //    id("publish-setup")
 }
 
 group = "com.shepeliev"
-version = "0.106.1-LOCAL"
-
-val jitsiWebRtcVersion = "106.0.1"
+version = "0.111.0.1-LOCAL"
 
 kotlin {
     android {
@@ -47,12 +46,14 @@ android {
 dependencies {
     commonMainImplementation(deps.kotlin.coroutines)
     androidMainImplementation(deps.androidx.coreKtx)
-    androidMainApi(fileTree("build/libs/android") { include("*.jar") })
+    androidMainApi("com.dafruits:webrtc:111.0.0")
+    // androidMainApi(fileTree("build/libs/android") { include("*.jar") })
     androidTestImplementation(deps.androidx.test.core)
     androidTestImplementation(deps.androidx.test.runner)
     jsMainImplementation(npm("webrtc-adapter", "8.1.1"))
 }
 
+/*
 tasks.register<Download>("downloadAndroidWebRtc") {
     src("https://github.com/jitsi/webrtc/releases/download/v$jitsiWebRtcVersion/android-webrtc.zip")
     dest(buildDir.resolve("tmp/android-webrtc-$jitsiWebRtcVersion.zip"))
@@ -74,4 +75,13 @@ afterEvaluate {
     tasks.named("commonize") {
         dependsOn("unzipAndroidWebRtc")
     }
+}
+*/
+
+signing {
+
+}
+
+tasks.withType<Sign>().configureEach {
+    onlyIf { false }
 }

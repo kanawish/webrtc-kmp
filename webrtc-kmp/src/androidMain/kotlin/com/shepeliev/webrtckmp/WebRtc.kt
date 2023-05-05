@@ -6,6 +6,8 @@ import android.content.Context
 import org.webrtc.DefaultVideoDecoderFactory
 import org.webrtc.DefaultVideoEncoderFactory
 import org.webrtc.EglBase
+import org.webrtc.HardwareVideoDecoderFactory
+import org.webrtc.HardwareVideoEncoderFactory
 import org.webrtc.Logging
 import org.webrtc.PeerConnectionFactory
 
@@ -56,9 +58,14 @@ actual object WebRtc {
     }
 
     private fun getDefaultPeerConnectionBuilder(): PeerConnectionFactory.Builder {
-        val videoEncoderFactory = DefaultVideoEncoderFactory(rootEglBase.eglBaseContext, true, false)
 
-        val videoDecoderFactory = DefaultVideoDecoderFactory(rootEglBase.eglBaseContext)
+        // NOTE: Go for hardware.
+        val videoEncoderFactory = HardwareVideoEncoderFactory(
+            rootEglBase.eglBaseContext, false, false)
+
+        val videoDecoderFactory = HardwareVideoDecoderFactory(rootEglBase.eglBaseContext)
+
+        val options = PeerConnectionFactory.Options()
         return PeerConnectionFactory.builder()
             .setVideoEncoderFactory(videoEncoderFactory)
             .setVideoDecoderFactory(videoDecoderFactory)

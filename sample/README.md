@@ -15,7 +15,7 @@ carthage update --use--xcframeworks
 Run Android emulator or connect real device.
 
 ```bash
-./graldew installDebug
+./gradlew installDebug
 ```
 
 ### iOS
